@@ -1,0 +1,22 @@
+Need to pull a random target number
+
+Need to have a slider for the user to input a guess
+
+Confirmation button should compare the user selection to the target number
+
+Model feedback how close the user was to the target and show score
+
+Scoring System and display total score
+
+Keep track of score and rounds
+
+Have a home screen
+
+How to play info screen
+
+Reset functionality
+
+landscape orientation
+
+make it look pretty
+
