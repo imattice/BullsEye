@@ -91,7 +91,9 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="guessSlider" destination="eH4-Eq-Avj" id="STl-b4-4HX"/>
+                        <outlet property="roundCountLabel" destination="3gO-AH-Aez" id="yAr-MP-hCu"/>
                         <outlet property="targetLabel" destination="Yu1-hz-qIn" id="Msq-Ui-bGE"/>
+                        <outlet property="totalScoreLabel" destination="weM-7M-0mp" id="M64-dD-3bv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
