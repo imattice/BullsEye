@@ -20,6 +20,11 @@ class ViewController: UIViewController {
         targetValue = 1 + Int(arc4random_uniform(100))
         currentValue = 50
         guessSlider.value = Float(currentValue)
+        updateLabels()
+    }
+    
+    func updateLabels() {
+        targetLabel.text = String(targetValue)
     }
     
     override func viewDidLoad() {
@@ -32,11 +37,48 @@ class ViewController: UIViewController {
     }
 
     @IBAction func showAlert() {
-        let message = "The value of the slider is: \(currentValue)" + "\nThe target value was: \(targetValue)"
-        let alert = UIAlertController(title: "Hello, World",
+        let diff = abs(targetValue - currentValue)
+        var score = 100 - diff
+        
+        
+        var message = ""
+    
+//        switch diff {
+//            case (diff == 0):
+//                message = "Spot on! Perfect score!"
+//                score += 50
+//            case diff <=3:
+//                message = "Agh! So close!"
+//            case diff <=5:
+//                message = "Almost had it!"
+//            case diff <=10:
+//                message = ""
+//            default:
+//                message = "Oops!"
+//                score -= diff
+//        }
+        
+        if (diff == 0) {
+            message += "Spot on! Perfect score!"
+            score += 50
+        } else if (diff <= 3) {
+            message += "Agh! So close!"
+        } else if (diff <= 5) {
+            message += "Almost had it!"
+        } else if (diff <= 10) {
+            message += "Maybe next time."
+        } else {
+            message += "Oops!"
+            score -= diff
+        }
+        
+        message += "\nYou scored \(score) points!"
+        
+        
+        let alert = UIAlertController(title: "You hit \(currentValue)!",
                                       message: message,
                                       preferredStyle: .Alert)
-        let action = UIAlertAction(title: "Nice!",
+        let action = UIAlertAction(title: "Next Round",
                                    style: .Default,
                                    handler: nil )
         alert.addAction(action)

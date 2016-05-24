@@ -91,6 +91,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="guessSlider" destination="eH4-Eq-Avj" id="STl-b4-4HX"/>
+                        <outlet property="targetLabel" destination="Yu1-hz-qIn" id="Msq-Ui-bGE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
