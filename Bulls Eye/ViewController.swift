@@ -12,13 +12,13 @@ class ViewController: UIViewController {
     var currentValue = 0
     var targetValue = 0
     var totalScore = 0
-    var roundCount = 1
+    var roundCount = 0
     
     func startNewRound() {
         targetValue = 1 + Int(arc4random_uniform(100))
         currentValue = 50
         guessSlider.value = Float(currentValue)
-        updateLabels()
+        //updateLabels()
         roundCount += 1
     }
     func updateLabels() {
@@ -26,10 +26,17 @@ class ViewController: UIViewController {
         totalScoreLabel.text = String(totalScore)
         roundCountLabel.text = String(roundCount)
     }
+    func rewindTime() {
+        startNewRound()
+        totalScore = 0
+        roundCount = 1
+        updateLabels()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         startNewRound()
+        updateLabels()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -41,7 +48,6 @@ class ViewController: UIViewController {
     @IBAction func showAlert() {
         let diff = abs(targetValue - currentValue)
         var score = 100 - diff
-        
         var message = "You hit \(currentValue)! \n" + "Your target was \(targetValue). \n"
         var title = ""
     
@@ -83,13 +89,18 @@ class ViewController: UIViewController {
                                       preferredStyle: .Alert)
         let action = UIAlertAction(title: "Next Round",
                                    style: .Default,
-                                   handler: nil )
+                                   handler: { action in 
+                                                self.startNewRound() 
+                                                self.updateLabels()
+                                            })
         alert.addAction(action)
         presentViewController(alert, animated: true, completion: nil)
-        startNewRound()
     }
     @IBAction func sliderMoved(slider: UISlider) {
         currentValue = lroundf(slider.value)
+    }
+    @IBAction func startOver() {
+        rewindTime()
     }
     
     @IBOutlet weak var guessSlider: UISlider!
