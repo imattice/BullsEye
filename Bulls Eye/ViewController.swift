@@ -9,12 +9,6 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    @IBOutlet weak var guessSlider: UISlider!
-    @IBOutlet weak var targetLabel: UILabel!
-    @IBOutlet weak var totalScoreLabel: UILabel!
-    @IBOutlet weak var roundCountLabel: UILabel!
-    
     var currentValue = 0
     var targetValue = 0
     var totalScore = 0
@@ -25,15 +19,14 @@ class ViewController: UIViewController {
         currentValue = 50
         guessSlider.value = Float(currentValue)
         updateLabels()
-        roundCount++
+        roundCount += 1
     }
-    
     func updateLabels() {
         targetLabel.text = String(targetValue)
         totalScoreLabel.text = String(totalScore)
         roundCountLabel.text = String(roundCount)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         startNewRound()
@@ -42,12 +35,15 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    
+    
     @IBAction func showAlert() {
         let diff = abs(targetValue - currentValue)
         var score = 100 - diff
         
-        var message = "Your target was \(targetValue). \n"
+        var message = "You hit \(currentValue)! \n" + "Your target was \(targetValue). \n"
+        var title = ""
     
 //        switch diff {
 //            case (diff == 0):
@@ -65,21 +61,24 @@ class ViewController: UIViewController {
 //        }
         
         if (diff == 0) {
-            message += "Spot on! Perfect score!"
+            title += "Spot on! Perfect score!"
             score += 50
         } else if (diff <= 3) {
-            message += "Agh! So close!"
+            if diff == 1 {
+                score += 25
+            }
+            title += "Agh! So close!"
         } else if (diff <= 10) {
-            message += "Almost had it!"
+            title += "Almost had it!"
         } else {
-            message += "Oops!"
+            title += "Oops!"
         }
         
         message += "\nYou scored \(score) points!"
         
         totalScore += score
         
-        let alert = UIAlertController(title: "You hit \(currentValue)!",
+        let alert = UIAlertController(title: title,
                                       message: message,
                                       preferredStyle: .Alert)
         let action = UIAlertAction(title: "Next Round",
@@ -92,4 +91,9 @@ class ViewController: UIViewController {
     @IBAction func sliderMoved(slider: UISlider) {
         currentValue = lroundf(slider.value)
     }
+    
+    @IBOutlet weak var guessSlider: UISlider!
+    @IBOutlet weak var targetLabel: UILabel!
+    @IBOutlet weak var totalScoreLabel: UILabel!
+    @IBOutlet weak var roundCountLabel: UILabel!
 }
