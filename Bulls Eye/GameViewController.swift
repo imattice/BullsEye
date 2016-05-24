@@ -8,18 +8,19 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-    var currentValue = 0
+class GameViewController: UIViewController {
+    var guessValue = 0
     var targetValue = 0
     var totalScore = 0
-    var roundCount = 0
+    var roundCount = 1
     
     func startNewRound() {
         targetValue = 1 + Int(arc4random_uniform(100))
-        currentValue = 50
-        guessSlider.value = Float(currentValue)
-        //updateLabels()
-        roundCount += 1
+        guessValue = 50
+        guessSlider.value = Float(guessValue)
+        if roundCount > 0 {
+            roundCount += 1
+        }
     }
     func updateLabels() {
         targetLabel.text = String(targetValue)
@@ -27,10 +28,9 @@ class ViewController: UIViewController {
         roundCountLabel.text = String(roundCount)
     }
     func rewindTime() {
-        startNewRound()
         totalScore = 0
         roundCount = 1
-        updateLabels()
+        startNewRound()
     }
 
     override func viewDidLoad() {
@@ -46,9 +46,9 @@ class ViewController: UIViewController {
     
     
     @IBAction func showAlert() {
-        let diff = abs(targetValue - currentValue)
+        let diff = abs(targetValue - guessValue)
         var score = 100 - diff
-        var message = "You hit \(currentValue)! \n" + "Your target was \(targetValue). \n"
+        var message = "You hit \(guessValue)! \n" + "Your target was \(targetValue). \n"
         var title = ""
     
 //        switch diff {
@@ -97,11 +97,13 @@ class ViewController: UIViewController {
         presentViewController(alert, animated: true, completion: nil)
     }
     @IBAction func sliderMoved(slider: UISlider) {
-        currentValue = lroundf(slider.value)
+        guessValue = lroundf(slider.value)
     }
     @IBAction func startOver() {
         rewindTime()
+        updateLabels()
     }
+
     
     @IBOutlet weak var guessSlider: UISlider!
     @IBOutlet weak var targetLabel: UILabel!
