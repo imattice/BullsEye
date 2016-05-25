@@ -25,7 +25,7 @@ class GameViewController: UIViewController {
         
         let transition = CATransition()
         transition.type = kCATransitionFade
-        transition.duration = 1
+        transition.duration = 0.5
         transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
         
         view.layer.addAnimation(transition, forKey: nil)
