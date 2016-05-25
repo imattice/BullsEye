@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import QuartzCore
 
 class GameViewController: UIViewController {
     var guessValue = 0
     var targetValue = 0
     var totalScore = 0
-    var roundCount = 1
+    var roundCount = 0
     
     func startNewRound() {
         targetValue = 1 + Int(arc4random_uniform(100))
@@ -21,6 +22,13 @@ class GameViewController: UIViewController {
         if roundCount > 0 {
             roundCount += 1
         }
+        
+        let transition = CATransition()
+        transition.type = kCATransitionFade
+        transition.duration = 1
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        
+        view.layer.addAnimation(transition, forKey: nil)
     }
     func updateLabels() {
         targetLabel.text = String(targetValue)
@@ -123,6 +131,13 @@ class GameViewController: UIViewController {
     @IBAction func startOver() {
         rewindTime()
         updateLabels()
+        
+        let transition = CATransition()
+            transition.type = kCATransitionReveal
+        transition.duration = 1
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        
+        view.layer.addAnimation(transition, forKey: nil)
     }
 
     
